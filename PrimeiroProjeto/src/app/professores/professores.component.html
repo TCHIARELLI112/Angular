@@ -1,0 +1,65 @@
+
+
+
+
+<div class="row">
+
+  <div *ngIf="professorSelecionado" class = "col-sm-6">
+
+
+    <div class="row">
+      <div class="mr-auto">
+        <h3>
+          <app-titulo [titulo]="'professor: '+ professorSelecionado.id "></app-titulo>
+          </h3>
+      </div>
+      <div class="mt-1">
+        <br>
+        <button class="btn btn-warning"(click)="voltar()">Lista de Professores</button>
+      </div>
+    </div>
+
+  <div>
+      <form>
+        <div class="form-group">
+          <label for="formGroupExampleInput">Nome</label>
+          <input type="text"  value= "{{professorSelecionado.nome}}" class="form-control" >
+        </div>
+        <div class="form-group">
+          <label for="formGroupExampleInput2">Disciplina</label>
+          <input type="text" value= "{{professorSelecionado.disciplina}}" class="form-control" >
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+  <div [ngClass]="{'col-sm-6': professorSelecionado, 'col-sm-12': !professorSelecionado}" class = "col-sm-6">
+    <h3>
+      <app-titulo [titulo]="titulo"></app-titulo>
+      </h3>
+
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Disciplina</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let professor of professores" (click) = profesorSelect(professor) >
+          <th scope="row">{{professor.id}}</th>
+          <td>{{professor.nome}}</td>
+          <td>{{professor.disciplina}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+
+
+</div>
+
