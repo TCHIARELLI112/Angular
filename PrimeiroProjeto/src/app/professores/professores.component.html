@@ -10,25 +10,31 @@
     <div class="row">
       <div class="mr-auto">
         <h3>
-          <app-titulo [titulo]="'professor: '+ professorSelecionado.id "></app-titulo>
+          <app-titulo [titulo]="'Codigo: '+ professorSelecionado.id "></app-titulo>
           </h3>
       </div>
       <div class="mt-1">
         <br>
-        <button class="btn btn-warning"(click)="voltar()">Lista de Professores</button>
+        <button class="btn btn-sm btn-outline-danger"(click)="voltar()">Fechar</button>
       </div>
     </div>
 
   <div>
-      <form>
+      <form  [formGroup]="professorForm" (submit)="professorSubmit()">
         <div class="form-group">
           <label for="formGroupExampleInput">Nome</label>
-          <input type="text"  value= "{{professorSelecionado.nome}}" class="form-control" >
+          <input type="text" formControlName="nome" nome class="form-control" >
         </div>
         <div class="form-group">
           <label for="formGroupExampleInput2">Disciplina</label>
-          <input type="text" value= "{{professorSelecionado.disciplina}}" class="form-control" >
+          <input type="text"formControlName="disciplina" disciplina class="form-control" >
         </div>
+
+        <div class="form-group">
+          <button class="btn btn-success" [disabled]="!professorForm.valid">salvar</button>
+        </div>
+
+
       </form>
 
     </div>
@@ -40,19 +46,26 @@
       <app-titulo [titulo]="titulo"></app-titulo>
       </h3>
 
-    <table class="table table-hover">
+    <table class="table ">
       <thead class="thead-dark">
         <tr>
+          <th scope="col">Visualizar</th>
           <th scope="col">#</th>
           <th scope="col">Nome</th>
           <th scope="col">Disciplina</th>
         </tr>
       </thead>
       <tbody>
-        <tr  *ngFor="let professor of professores" (click) = profesorSelect(professor) >
-          <th scope="row">{{professor.id}}</th>
+        <tr  *ngFor="let professor of professores" >
+          <td><button (click) = profesorSelect(professor) class="text-dark btn btn-sm btn-outline-warning">Detalhe</button></td>
+          <td scope="row">{{professor.id}}</td>
           <td>{{professor.nome}}</td>
           <td>{{professor.disciplina}}</td>
+          <td>
+            <div class="btn-group">
+              <button  (click)="openModal(template)" class="btn btn-sm btn-outline-primary">Alunos</button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -63,3 +76,14 @@
 
 </div>
 
+
+<ng-template #template>
+  <div class="modal-body">
+    
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn pull-right" aria-label="Close" (click)="modalRef.hide()">
+      FECHAR
+    </button>
+  </div>
+</ng-template>
